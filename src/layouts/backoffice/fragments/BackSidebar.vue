@@ -79,21 +79,21 @@ const toggleMenu = (item: any) => {
 </script>
 
 <template>
-    <nav class="d-flex flex-column flex-shrink-0 bg-body-tertiary border-end min-vh-100" style="width: 250px;">
-        <div class="d-flex align-items-center px-4" style="height: 70px;">
+    <nav class="backoffice-sidebar d-flex flex-column flex-shrink-0 min-vh-100">
+        <div class="backoffice-brand d-flex align-items-center px-4">
             <RouterLink to="/" class="text-decoration-none w-100 text-center">
-                <h2 class="fw-bold text-uppercase h4 mb-0 text-black">
+                <h2 class="backoffice-brand-title fw-bold text-uppercase h4 mb-0">
                     <span class="text-primary">Erp</span>Shop
                 </h2>
             </RouterLink>
         </div>
-        <hr class="m-0">
-        <div class="p-3 d-flex flex-column flex-grow-1 overflow-auto">
+        <hr class="m-0 backoffice-divider">
+        <div class="p-3 d-flex flex-column flex-grow-1 overflow-auto backoffice-scroll">
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item mb-1" v-for="(item, index) in menuItems" :key="index">
 
                     <RouterLink v-if="!item.children" :to="item.route!"
-                        class="nav-link text-dark d-flex align-items-center gap-2"
+                        class="nav-link backoffice-nav-link d-flex align-items-center gap-2"
                         :class="{ 'active': isActive(item.route) }">
                         <i class="bi" :class="item.icon || 'bi-circle'"></i>
                         {{ item.title }}
@@ -101,7 +101,7 @@ const toggleMenu = (item: any) => {
 
                     <div v-else>
                         <button
-                            class="nav-link text-dark d-flex justify-content-between align-items-center w-100 border-0"
+                            class="nav-link backoffice-nav-link d-flex justify-content-between align-items-center w-100 border-0"
                             :class="[isChildActive(item.children) ? 'active' : 'bg-transparent']"
                             @click="toggleMenu(item)">
                             <div class="d-flex align-items-center gap-2">
@@ -114,7 +114,7 @@ const toggleMenu = (item: any) => {
                             <ul class="nav flex-column ms-3 mt-1">
                                 <li class="nav-item" v-for="(child, childIndex) in item.children" :key="childIndex">
                                     <RouterLink
-                                        class="nav-link text-dark py-1 opacity-75 d-flex align-items-center gap-2"
+                                        class="nav-link backoffice-sub-link py-1 opacity-75 d-flex align-items-center gap-2"
                                         :class="{ 'active fw-bold opacity-100': isActive(child.route) }"
                                         :to="child.route!">
                                         <i class="fs-6 bi" :class="child.icon || 'bi-dash'"></i>
@@ -131,8 +131,57 @@ const toggleMenu = (item: any) => {
 </template>
 
 <style scoped>
-.nav-pills .nav-link.active {
-    background-color: rgba(255, 208, 0, 0.1) !important;
-    color: #001797 !important;
+.backoffice-sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #fff7ea 0%, #fff2dc 55%, #fffaf2 100%);
+    border-right: 1px solid rgba(210, 190, 164, 0.6);
+    box-shadow: 10px 0 30px rgba(78, 68, 54, 0.08);
+}
+
+.backoffice-brand {
+    height: 72px;
+}
+
+.backoffice-brand-title {
+    color: #2f2a25;
+    letter-spacing: 0.06em;
+}
+
+.backoffice-divider {
+    border-color: rgba(210, 190, 164, 0.5);
+}
+
+.backoffice-nav-link {
+    color: #3a332d;
+    border-radius: 12px;
+    padding: 0.6rem 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.backoffice-nav-link:hover {
+    background-color: rgba(255, 205, 120, 0.35);
+    color: #2a1f12;
+}
+
+.backoffice-nav-link.active {
+    background: linear-gradient(135deg, #ffcf70, #ffb86b);
+    color: #3a2400 !important;
+    box-shadow: 0 8px 18px rgba(255, 198, 93, 0.35);
+}
+
+.backoffice-sub-link {
+    color: #3a332d;
+    border-radius: 10px;
+    padding-left: 0.75rem;
+}
+
+.backoffice-sub-link:hover {
+    background-color: rgba(168, 214, 255, 0.35);
+    color: #1f3348;
+}
+
+.backoffice-sub-link.active {
+    background-color: rgba(168, 214, 255, 0.6) !important;
+    color: #12263a !important;
 }
 </style>
