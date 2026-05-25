@@ -244,7 +244,7 @@ onMounted(fetchProduct)
 
                         <div class="d-flex align-items-center mb-4">
                             <span class="fw-bold me-2">Stock:</span>
-                            <span class="badge rounded-pill px-3 py-2 text-white"
+                            <span class="badge rounded-pill px-3 py-2 text-black"
                                 :class="stockQuantity !== null && stockQuantity > 0 ? 'bg-success' : 'bg-danger'">
                                 <span v-if="stockQuantity !== null">{{ stockQuantity }} en stock</span>
                                 <span v-else class="spinner-border spinner-border-sm" role="status"
@@ -274,7 +274,7 @@ onMounted(fetchProduct)
                                 </div>
                                 <div v-else>
                                     <select
-                                        class="form-select bg-dark text-white border-secondary-subtle rounded-3 w-auto"
+                                        class="form-select bg-light text-black border-secondary-subtle rounded-3 w-auto"
                                         v-model="selectedOptions[group.option.id]">
                                         <option v-for="val in group.values" :key="val.id" :value="val.id">{{ val.name }}
                                         </option>
@@ -290,14 +290,14 @@ onMounted(fetchProduct)
                                     <label class="small text-uppercase fw-bold text-muted mb-2 d-block">Quantité</label>
                                     <div class="input-group quantity-selector rounded-3 overflow-hidden border border-secondary-subtle"
                                         style="height: 48px;">
-                                        <button class="btn btn-dark border-0 px-3 h-100"
+                                        <button class="btn btn-light border-0 px-3 h-100"
                                             @click="quantity > 1 ? quantity-- : null">
                                             <i class="bi bi-dash-lg"></i>
                                         </button>
                                         <input type="number"
-                                            class="form-control bg-dark border-0 text-center text-white fw-bold shadow-none h-100"
+                                            class="form-control bg-light border-0 text-center text-black fw-bold shadow-none h-100"
                                             v-model="quantity" style="width: 60px;">
-                                        <button class="btn btn-dark border-0 px-3 h-100" @click="quantity++">
+                                        <button class="btn btn-light border-0 px-3 h-100" @click="quantity++">
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>

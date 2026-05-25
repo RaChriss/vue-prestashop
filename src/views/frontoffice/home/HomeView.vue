@@ -166,7 +166,7 @@ onMounted(fetchCustomer)
 }
 
 /* Adaptation spécifique pour le texte muet en mode sombre */
-[data-bs-theme="dark"] .text-muted {
+[data-bs-theme="light"] .text-muted {
     color: #a1a1aa !important;
 }
 </style>

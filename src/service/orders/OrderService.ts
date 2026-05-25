@@ -1,11 +1,13 @@
 import { OrdersApi } from '@/api/orders/OrdersApi'
-import type { Order } from '@/types/orders'
+import type { Order, OrderFilters } from '@/types/orders'
 import type { Cart } from '@/types/cart'
 import { parseOrderListXml, parseOrderXml } from '@/mappers/orders'
 
 const getCurrentPrestaDate = () => new Date().toISOString().slice(0, 19).replace('T', ' ')
 
 export const OrderService = {
+
+
 
     async createOrderFromCart(cart: Cart, cartItems: Array<{ id_product: number; id_product_attribute: number; priceTtc: number; quantity: number }>, clientId: number, clientEmail: string, orderDate?: string): Promise<Order | undefined> {
         try {
@@ -150,11 +152,30 @@ export const OrderService = {
         }
     },
 
+    async getFiltered(filters: OrderFilters, page: number, limit: number): Promise<Order[]> {
+        try {
+            const xml = await OrdersApi.getFiltered(filters, page, limit)
+            return parseOrderListXml(xml)
+        } catch (error) {
+            console.error('Erreur lors de la récupération filtrée des commandes:', error)
+            return []
+        }
+    },
+
     async countAll(): Promise<number> {
         try {
             return await OrdersApi.countAll()
         } catch (error) {
             console.error('Erreur lors du comptage de toutes les commandes:', error)
+            return 0
+        }
+    },
+
+    async countFiltered(filters: OrderFilters): Promise<number> {
+        try {
+            return await OrdersApi.countFiltered(filters)
+        } catch (error) {
+            console.error('Erreur lors du comptage filtré des commandes:', error)
             return 0
         }
     },

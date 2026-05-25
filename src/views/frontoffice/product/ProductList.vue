@@ -112,7 +112,7 @@ watch(currentPage, fetchProducts)
                     <h5 class="fw-bold mb-3 d-flex align-items-center">
                         <i class="bi bi-search me-2 text-primary"></i>Recherche
                     </h5>
-                    <input type="text" class="form-control mb-4 bg-dark text-white border-secondary rounded-3"
+                    <input type="text" class="form-control mb-4  text-black border-secondary rounded-3"
                         v-model="searchName" placeholder="Nom du produit...">
 
                     <hr class="my-4 opacity-50">
@@ -120,7 +120,7 @@ watch(currentPage, fetchProducts)
                         <i class="bi bi-filter-left me-2 text-primary"></i>Catégories
                     </h5>
 
-                    <select class="form-select bg-dark text-white border-secondary rounded-3 mb-4"
+                    <select class="form-select bg-light text-black border-secondary rounded-3 mb-4"
                         v-model="selectedCategory">
                         <option value="Tout">Tout</option>
                         <template v-for="cat in categories" :key="cat.id">
@@ -137,12 +137,12 @@ watch(currentPage, fetchProducts)
                     <div class="row g-2">
                         <div class="col-6">
                             <label class="small text-muted mb-2 d-block">Min €</label>
-                            <input type="number" class="form-control bg-dark text-white border-secondary rounded-3"
+                            <input type="number" class="form-control  text-black border-secondary rounded-3"
                                 v-model.number="priceMin" min="0" step="0.01" placeholder="0,00">
                         </div>
                         <div class="col-6">
                             <label class="small text-muted mb-2 d-block">Max €</label>
-                            <input type="number" class="form-control bg-dark text-white border-secondary rounded-3"
+                            <input type="number" class="form-control  text-black border-secondary rounded-3"
                                 v-model.number="priceMax" min="0" step="0.01" placeholder="1000,00">
                         </div>
                     </div>
@@ -164,7 +164,7 @@ watch(currentPage, fetchProducts)
                 <div
                     class="d-flex justify-content-between align-items-center mb-4 bg-body p-3 rounded-4 border shadow-sm">
                     <p class="mb-0 text-muted small fw-medium">
-                        Affichage de <span class="text-white fw-bold">{{ products.length }}</span> produits
+                        Affichage de <span class="text-black fw-bold">{{ products.length }}</span> produits
                     </p>
 
                     <!-- <div class="d-flex align-items-center gap-3">
@@ -329,11 +329,11 @@ watch(currentPage, fetchProducts)
     animation: pulse 1.5s infinite ease-in-out;
 }
 
-.form-control.bg-dark {
+.form-control.bg-light {
     color: #ffffff !important;
 }
 
-.form-control.bg-dark::placeholder {
+.form-control.bg-light::placeholder {
     color: rgba(255, 255, 255, 0.5);
 }
 </style>

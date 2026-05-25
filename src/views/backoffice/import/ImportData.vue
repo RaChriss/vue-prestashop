@@ -383,14 +383,14 @@ const failCountImages = () => imageResults.value.filter(r => !r.success).length
         <div v-if="showErrorModal" class="modal fade show d-block" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered modal-error-shake">
                 <div class="modal-content border-0 shadow-2xl rounded-5 overflow-hidden modal-glass">
-                    <div class="modal-header border-0 py-4 px-4 bg-gradient-danger text-white">
+                    <div class="modal-header border-0 py-4 px-4 bg-gradient-danger text-black">
                         <div class="d-flex align-items-center">
                             <div class="bg-white bg-opacity-20 rounded-circle p-2 me-3">
                                 <i class="bi bi-exclamation-triangle-fill fs-3 d-flex"></i>
                             </div>
                             <div>
                                 <h5 class="modal-title fw-bold mb-0">Échec de l'importation</h5>
-                                <small class="text-white-50">L'intégrité des données a été préservée</small>
+                                <small class="text-black-50">L'intégrité des données a été préservée</small>
                             </div>
                         </div>
                         <button type="button" class="btn-close btn-close-white ms-auto shadow-none"
@@ -407,7 +407,7 @@ const failCountImages = () => imageResults.value.filter(r => !r.success).length
                         <div class="error-container">
                             <div class="error-header mb-3">
                                 <i class="bi bi-shield-lock-fill text-danger me-2"></i>
-                                <span class="fw-bold text-dark">Rapport d'incident technique</span>
+                                <span class="fw-bold text-light">Rapport d'incident technique</span>
                             </div>
 
                             <div class="error-details-box shadow-inner">

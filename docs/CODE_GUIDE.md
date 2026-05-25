@@ -295,7 +295,7 @@ const closeModal = () => {
 <div v-if="selectedItem" class="modal-backdrop fade show" @click="closeModal"></div>
 <div v-if="selectedItem" class="modal fade show d-block" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark text-white border-secondary">
+    <div class="modal-content bg-light text-black border-secondary">
       <div class="modal-header border-secondary">
         <h5>Détail #{{ selectedItem.id }}</h5>
         <button class="btn-close btn-close-white" @click="closeModal"></button>

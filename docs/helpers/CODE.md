@@ -110,7 +110,7 @@ export const resetCart = () => {
 
 ## 2. Intégration du bouton dans la vue Panier
 
-Fichier à éditer : [CartView.vue](file:///home/deku/Documents/S6/EVAL/vue-prestashop/src/views/frontoffice/cart/CartView.vue)
+Fichier à éditer : [CartView.vue](file:///home/deku/Documents/S6/EVAL/erp-prestashop/src/views/frontoffice/cart/CartView.vue)
 
 ### Le code HTML (Template)
 
@@ -147,13 +147,13 @@ const handleNewCart = () => {
 
 ## 3. Intégration du bouton dans la barre de navigation
 
-Fichier à éditer : [FrontNavbar.vue](file:///home/deku/Documents/S6/EVAL/vue-prestashop/src/layouts/frontoffice/fragments/FrontNavbar.vue)
+Fichier à éditer : [FrontNavbar.vue](file:///home/deku/Documents/S6/EVAL/erp-prestashop/src/layouts/frontoffice/fragments/FrontNavbar.vue)
 
 Vous pouvez également proposer l'action directement dans la barre supérieure de navigation :
 
 ```html
 <!-- Bouton Nouveau Panier dans la Navbar -->
-<button @click="triggerNewCart" class="btn btn-sm btn-outline-light rounded-pill px-3 ms-2">
+<button @click="triggerNewCart" class="btn btn-sm btn-outline-secondary rounded-pill px-3 ms-2">
   <i class="bi bi-trash3 me-1"></i>Nouveau panier
 </button>
 ```
@@ -187,7 +187,7 @@ Pour réactiver un ancien panier de l'historique :
 
 ## Implémentation de l'action réactivation
 
-Fichier principal à éditer : [OrdersView.vue](file:///home/deku/Documents/S6/EVAL/vue-prestashop/src/views/frontoffice/orders/OrdersView.vue)
+Fichier principal à éditer : [OrdersView.vue](file:///home/deku/Documents/S6/EVAL/erp-prestashop/src/views/frontoffice/orders/OrdersView.vue)
 
 ### 1. Le code HTML (Bouton dans la liste ou dans le modal de détails)
 
@@ -208,7 +208,7 @@ Dans le template de la liste des commandes, si la ligne correspond à un panier 
 
 ### 2. Le code TypeScript (Script setup)
 
-Dans le bloc `<script setup lang="ts">` de [OrdersView.vue](file:///home/deku/Documents/S6/EVAL/vue-prestashop/src/views/frontoffice/orders/OrdersView.vue), importez le `useRouter` et définissez la méthode de réactivation :
+Dans le bloc `<script setup lang="ts">` de [OrdersView.vue](file:///home/deku/Documents/S6/EVAL/erp-prestashop/src/views/frontoffice/orders/OrdersView.vue), importez le `useRouter` et définissez la méthode de réactivation :
 
 ```typescript
 import { useRouter } from 'vue-router'
@@ -237,7 +237,7 @@ const reactivateCart = (cartId: number) => {
 
 ## 3. Mise à jour de la Navbar pour refléter le changement
 
-Une fois redirigé, le composant [FrontNavbar.vue](file:///home/deku/Documents/S6/EVAL/vue-prestashop/src/layouts/frontoffice/fragments/FrontNavbar.vue) détectera automatiquement la nouvelle clé `current_cart_id` au montage ou lors d'un rafraîchissement d'état, affichant le bon nombre d'articles en haut à droite.
+Une fois redirigé, le composant [FrontNavbar.vue](file:///home/deku/Documents/S6/EVAL/erp-prestashop/src/layouts/frontoffice/fragments/FrontNavbar.vue) détectera automatiquement la nouvelle clé `current_cart_id` au montage ou lors d'un rafraîchissement d'état, affichant le bon nombre d'articles en haut à droite.
 
 ```
 

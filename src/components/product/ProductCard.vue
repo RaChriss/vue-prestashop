@@ -92,7 +92,7 @@ onMounted(loadData)
 
             <div class="product-overlay d-flex align-items-center justify-content-center">
                 <RouterLink :to="`/boutique/produit/${product.id}`"
-                    class="btn btn-light btn-sm rounded-pill px-4 shadow fw-bold">
+                    class="btn btn-dark btn-sm rounded-pill px-4 shadow fw-bold">
                     <i class="bi bi-eye me-2"></i>Voir
                 </RouterLink>
             </div>
@@ -102,7 +102,7 @@ onMounted(loadData)
                 <div v-if="category" class="product-info mb-3 pb-2">
                     <span class="info-label">Catégorie:</span>
                     <span :style="{ backgroundColor: getCategoryBgColor(category.name) }"
-                        class="badge rounded-pill px-2 py-1 ms-1 text-white">{{ category.name }}</span>
+                        class="badge rounded-pill px-2 py-1 ms-1 text-black">{{ category.name }}</span>
                 </div>
                 <div class="product-info mb-2 pb-2">
                     <span class="info-label">Produit:</span>
@@ -127,7 +127,7 @@ onMounted(loadData)
                 <br>
                 <div class="product-info mb-2 pb-2">
                     <span class="info-label">Stock:</span>
-                    <span class="badge rounded-pill px-2 py-1 ms-1 text-white"
+                    <span class="badge rounded-pill px-2 py-1 ms-1 text-black"
                         :class="stockAvailable !== null && stockAvailable > 0 ? 'bg-success' : 'bg-danger'">
                         <span v-if="stockAvailable !== null">{{ stockAvailable }} en stock</span>
                         <span v-else class="spinner-border spinner-border-sm" role="status"
