@@ -53,7 +53,7 @@ const menuItems = ref<(MenuItem & { isOpen?: boolean })[]>([
     {
         title: 'Import de données',
         route: '/import',
-        icon: 'bi-cloud-upload'
+        icon: 'bi-cloud-download'
     },
     {
         title: 'Réinitialisation',

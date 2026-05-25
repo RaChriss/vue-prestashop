@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { OrderService } from '@/service/orders/OrderService'
 import { OrderHistoryService } from '@/service/order_history/OrderHistoryService'
 import { CustomerService } from '@/service/customer/CustomerService'
-import type { Order } from '@/types/orders'
+import type { Order, OrderFilters } from '@/types/orders'
 import type { OrderHistory } from '@/types/order_history'
 import { OrderStateChangeService } from '@/service/order_state_change/OrderStateChangeService'
 
@@ -18,6 +18,18 @@ const customerNames = ref<Record<number, string>>({})
 const selectedOrder = ref<Order | null>(null)
 const selectedOrderHistory = ref<OrderHistory[]>([])
 const isHistoryLoading = ref(false)
+
+const defaultFilters = () => ({
+    referenceOrId: '',
+    status: '',
+    customer: '',
+    dateFrom: '',
+    dateTo: '',
+    minTotal: '',
+    maxTotal: ''
+})
+
+const filters = ref(defaultFilters())
 
 const orderStatusMap: Record<number, { label: string; badgeClass: string }> = {
     1: { label: 'En attente du paiement par chèque', badgeClass: 'bg-warning text-light' },
@@ -134,11 +146,74 @@ const livrerCommande = async (order: Order) => {
     }
 }
 
+const resolveFilters = async (): Promise<OrderFilters | null> => {
+    const resolved: OrderFilters = {}
+
+    const referenceOrId = filters.value.referenceOrId.trim()
+    if (referenceOrId) {
+        if (/^\d+$/.test(referenceOrId)) {
+            resolved.orderId = Number(referenceOrId)
+        } else {
+            resolved.reference = referenceOrId
+        }
+    }
+
+    const statusValue = filters.value.status.trim()
+    if (statusValue) {
+        const parsedStatus = Number(statusValue)
+        if (!Number.isNaN(parsedStatus)) resolved.status = parsedStatus
+    }
+
+    const customerInput = filters.value.customer.trim()
+    if (customerInput) {
+        if (/^\d+$/.test(customerInput)) {
+            resolved.customerId = Number(customerInput)
+        } else {
+            const customer = await CustomerService.findByEmail(customerInput)
+            if (!customer) return null
+            resolved.customerId = customer.id
+        }
+    }
+
+    if (filters.value.dateFrom) resolved.dateFrom = filters.value.dateFrom
+    if (filters.value.dateTo) resolved.dateTo = filters.value.dateTo
+
+    if (filters.value.minTotal !== '') {
+        const parsedMin = Number(filters.value.minTotal)
+        if (!Number.isNaN(parsedMin)) resolved.minTotal = parsedMin
+    }
+
+    if (filters.value.maxTotal !== '') {
+        const parsedMax = Number(filters.value.maxTotal)
+        if (!Number.isNaN(parsedMax)) resolved.maxTotal = parsedMax
+    }
+
+    return resolved
+}
+
+const applyFilters = async () => {
+    currentPage.value = 1
+    await fetchOrders()
+}
+
+const resetFilters = async () => {
+    filters.value = defaultFilters()
+    currentPage.value = 1
+    await fetchOrders()
+}
+
 const fetchOrders = async () => {
     isLoading.value = true
     try {
-        totalOrders.value = await OrderService.countAll()
-        orders.value = await OrderService.getPaginated(currentPage.value, itemsPerPage)
+        const resolvedFilters = await resolveFilters()
+        if (!resolvedFilters) {
+            orders.value = []
+            totalOrders.value = 0
+            return
+        }
+
+        totalOrders.value = await OrderService.countFiltered(resolvedFilters)
+        orders.value = await OrderService.getFiltered(resolvedFilters, currentPage.value, itemsPerPage)
 
         // Récupérer les noms des clients
         const newCustomerIds = new Set(orders.value.map(o => o.id_customer).filter(id => !customerNames.value[id]))
@@ -168,6 +243,60 @@ onMounted(fetchOrders)
             </div>
             <h2 class="h3 mb-0 fw-bold">Gestion des commandes</h2>
         </div>
+
+        <!-- filtre multiple avec référence/id, statut, client, date, total min/max -->
+
+        <!-- <form class="card border-0 shadow-sm mb-4" @submit.prevent="applyFilters">
+            <div class="card-body">
+                <div class="row g-3 align-items-end">
+                    <div class="col-12 col-md-3">
+                        <label class="form-label small text-muted">Référence / ID</label>
+                        <input v-model="filters.referenceOrId" type="text" class="form-control form-control-sm"
+                            placeholder="Ex: ABJ123 ou 42" />
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label class="form-label small text-muted">Statut</label>
+                        <select v-model="filters.status" class="form-select form-select-sm">
+                            <option value="">Tous</option>
+                            <option v-for="(status, id) in orderStatusMap" :key="id" :value="id">
+                                {{ status.label }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label class="form-label small text-muted">Client (email ou ID)</label>
+                        <input v-model="filters.customer" type="text" class="form-control form-control-sm"
+                            placeholder="client@mail.com ou 12" />
+                    </div>
+                    <div class="col-6 col-md-1">
+                        <label class="form-label small text-muted">Du</label>
+                        <input v-model="filters.dateFrom" type="date" class="form-control form-control-sm" />
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label class="form-label small text-muted">Au</label>
+                        <input v-model="filters.dateTo" type="date" class="form-control form-control-sm" />
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label class="form-label small text-muted">Total min</label>
+                        <input v-model="filters.minTotal" type="number" min="0" step="0.01"
+                            class="form-control form-control-sm" placeholder="0.00" />
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label class="form-label small text-muted">Total max</label>
+                        <input v-model="filters.maxTotal" type="number" min="0" step="0.01"
+                            class="form-control form-control-sm" placeholder="9999.00" />
+                    </div>
+                </div>
+                <div class="d-flex gap-2 mt-3">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="bi bi-funnel me-1"></i> Appliquer
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" @click="resetFilters">
+                        Réinitialiser
+                    </button>
+                </div>
+            </div>
+        </form> -->
 
         <!-- Squelettes -->
         <div v-if="isLoading" class="table-responsive">

@@ -64,3 +64,14 @@ export interface Order {
     reference: string
     order_rows?: OrderRow[]
 }
+
+export type OrderFilters = {
+    orderId?: number
+    reference?: string
+    status?: number
+    customerId?: number
+    dateFrom?: string
+    dateTo?: string
+    minTotal?: number
+    maxTotal?: number
+}
