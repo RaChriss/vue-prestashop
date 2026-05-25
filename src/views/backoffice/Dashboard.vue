@@ -513,7 +513,7 @@ onMounted(() => {
               </h3>
 
               <div class="table-responsive premium-scrollbar" style="max-height: 350px; overflow-y: auto;">
-                <table class="table table-dark table-hover align-middle mb-0">
+                <table class="table table-light table-hover align-middle mb-0">
                   <thead class="sticky-top border-bottom border-secondary-light" style="z-index: 10;">
                     <tr class="text-secondary">
                       <th class="ps-3 py-3 font-weight-bold text-uppercase fs-7 tracking-wider">Date</th>
@@ -527,7 +527,7 @@ onMounted(() => {
                   <tbody>
                     <tr v-for="day in metrics.dailyBreakdown" :key="day.date"
                       class="border-bottom border-secondary-light">
-                      <td class="ps-3 py-3 fw-semibold text-white">
+                      <td class="ps-3 py-3 fw-semibold text-black">
                         <i class="bi bi-calendar3 me-2 text-primary"></i>{{ formatDateFr(day.date) }}
                       </td>
                       <td class="py-3 text-center">
@@ -571,7 +571,7 @@ onMounted(() => {
         <div class="row g-4 mt-4">
           <div class="col-12">
             <hr class="border-secondary border-opacity-20 my-4" />
-            <h2 class="h4 mb-4 fw-extrabold text-white d-flex align-items-center">
+            <h2 class="h4 mb-4 fw-extrabold text-black d-flex align-items-center">
               <i class="bi bi-wallet2 me-2 text-primary"></i>Statistiques Financières de Référence (Toutes dates)
             </h2>
           </div>
@@ -596,7 +596,7 @@ onMounted(() => {
                       <i class="bi bi-cash-stack fs-4"></i>
                     </div>
                   </div>
-                  <h2 class="h3 fw-bold mb-1 text-white">{{ totalSalesHt.toLocaleString('fr-FR', {
+                  <h2 class="h3 fw-bold mb-1 text-black">{{ totalSalesHt.toLocaleString('fr-FR', {
                     minimumFractionDigits: 2, maximumFractionDigits: 2
                   }) }} €</h2>
                   <p class="text-info-light mb-0 fs-7">Chiffre d'affaires cumulé hors taxe</p>
@@ -615,7 +615,7 @@ onMounted(() => {
                       <i class="bi bi-cart-check fs-4"></i>
                     </div>
                   </div>
-                  <h2 class="h3 fw-bold mb-1 text-white">{{ totalPurchasesHt.toLocaleString('fr-FR', {
+                  <h2 class="h3 fw-bold mb-1 text-black">{{ totalPurchasesHt.toLocaleString('fr-FR', {
                     minimumFractionDigits: 2, maximumFractionDigits: 2
                   }) }} €</h2>
                   <p class="text-warning-light mb-0 fs-7">Valorisation totale des entrées de stock</p>
@@ -626,16 +626,16 @@ onMounted(() => {
           </div>
 
           <!-- Category Table -->
-          <div class="card border-0 shadow-sm bg-glass-dark mb-4">
+          <div class="card border-0 shadow-sm bg-glass-light mb-4">
             <div
               class="card-header bg-transparent border-0 px-4 py-3 d-flex align-items-center justify-content-between">
-              <h5 class="mb-0 fw-bold text-white">Analyse Sectorielle par Catégorie</h5>
+              <h5 class="mb-0 fw-bold text-black">Analyse Sectorielle par Catégorie</h5>
               <span class="badge bg-secondary-light text-secondary rounded-pill px-3">{{ categoryStats.length }}
                 catégories actives</span>
             </div>
             <div class="card-body p-0">
               <div class="table-responsive">
-                <table class="table table-dark table-hover mb-0 align-middle">
+                <table class="table table-light table-hover mb-0 align-middle">
                   <thead>
                     <tr class="text-secondary border-bottom border-secondary-light">
                       <th class="px-4 py-3 text-uppercase tracking-wider fs-8 fw-bold">ID</th>
@@ -652,13 +652,13 @@ onMounted(() => {
                       <td class="px-4 text-secondary-light font-monospace">{{ stat.category.id }}</td>
                       <td>
                         <div class="d-flex align-items-center gap-2">
-                          <div class="avatar-init bg-secondary text-white rounded fw-bold fs-7">
+                          <div class="avatar-init bg-secondary text-black rounded fw-bold fs-7">
                             {{ (stat.category.name || 'C').charAt(0).toUpperCase() }}
                           </div>
-                          <span class="fw-semibold text-white">{{ stat.category.name }}</span>
+                          <span class="fw-semibold text-black">{{ stat.category.name }}</span>
                         </div>
                       </td>
-                      <td class="text-end fw-bold text-white-50">
+                      <td class="text-end fw-bold text-black-50">
                         {{ stat.quantitySold }}
                       </td>
                       <td class="text-end fw-semibold text-info">
@@ -695,7 +695,7 @@ onMounted(() => {
         <div class="row g-4 mt-4">
           <div class="col-12">
             <hr class="border-secondary border-opacity-20 my-4" />
-            <h2 class="h4 mb-4 fw-extrabold text-white d-flex align-items-center">
+            <h2 class="h4 mb-4 fw-extrabold text-black d-flex align-items-center">
               <i class="bi bi-bar-chart-line me-2 text-primary"></i>Répartition des Commandes par État
             </h2>
           </div>
@@ -707,17 +707,17 @@ onMounted(() => {
         </div>
 
         <div v-else class="animate-fade-in">
-          <div class="card border-0 shadow-sm bg-glass-dark mb-4">
+          <div class="card border-0 shadow-sm bg-glass-light mb-4">
             <div
               class="card-header bg-transparent border-0 px-4 py-3 d-flex align-items-center justify-content-between">
-              <h5 class="mb-0 fw-bold text-white">Nombre de commandes par état</h5>
+              <h5 class="mb-0 fw-bold text-black">Nombre de commandes par état</h5>
               <span class="badge bg-secondary-light text-secondary rounded-pill px-3">
                 {{orderStatusCounts.reduce((s, o) => s + o.count, 0)}} commandes au total
               </span>
             </div>
             <div class="card-body p-0">
               <div class="table-responsive">
-                <table class="table table-dark table-hover mb-0 align-middle">
+                <table class="table table-light table-hover mb-0 align-middle">
                   <thead>
                     <tr class="text-secondary border-bottom border-secondary-light">
                       <th class="px-4 py-3 text-uppercase tracking-wider fs-8 fw-bold">État</th>
@@ -730,7 +730,7 @@ onMounted(() => {
                       <td class="px-4">
                         <div class="d-flex align-items-center gap-2">
                           <i :class="[status.icon, status.color, 'fs-5']"></i>
-                          <span class="fw-semibold text-white">{{ status.label }}</span>
+                          <span class="fw-semibold text-black">{{ status.label }}</span>
                         </div>
                       </td>
                       <td class="text-end pe-4">
@@ -850,17 +850,17 @@ onMounted(() => {
 /* Group container cards */
 /* Group container cards with glassmorphism */
 .dashboard-group-card {
-  background: rgba(30, 34, 45, 0.45) !important;
+  background: rgba(193, 210, 255, 0.45) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(93, 232, 236, 0.05) !important;
   height: 100%;
   transition: all 0.4s ease;
 }
 
 .dashboard-group-card:hover {
-  background: rgba(30, 34, 45, 0.6) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  background: rgba(240, 244, 255, 0.6) !important;
+  box-shadow: 0 8px 30px rgba(255, 253, 253, 0.3);
 }
 
 .group-title {

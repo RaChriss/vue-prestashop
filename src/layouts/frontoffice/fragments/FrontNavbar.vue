@@ -52,11 +52,11 @@ watch(() => clientAuth.client, fetchCartCount)
 </script>
 
 <template>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark border-bottom shadow-sm py-3 sticky-top">
+    <nav class="navbar navbar-expand-lg bg-light navbar-light border-bottom shadow-sm py-3 sticky-top">
         <div class="container">
             <RouterLink class="navbar-brand d-flex align-items-center" to="/boutique">
                 <h2 class="fw-bold text-uppercase h4 mb-0">
-                    <span class="text-primary">Vue</span>Shop
+                    <span class="text-primary">Erp</span>Shop
                 </h2>
             </RouterLink>
 
@@ -97,7 +97,7 @@ watch(() => clientAuth.client, fetchCartCount)
                             <i class="bi bi-box-seam fs-5 text-warning"></i>
                             <span class="d-lg-none">Commandes</span>
                             <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark border border-dark border-2 small"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-light border border-light border-2 small"
                                 style="font-size: 0.65rem;">
                                 {{ ordersCount }}
                             </span>
@@ -112,7 +112,7 @@ watch(() => clientAuth.client, fetchCartCount)
                             <i class="bi bi-cart3 fs-5 text-primary"></i>
                             <span class="d-lg-none">Panier</span>
                             <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary border border-dark border-2 small"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary border border-light border-2 small"
                                 style="font-size: 0.65rem;">
                                 {{ cartCount }}
                             </span>
@@ -130,12 +130,12 @@ watch(() => clientAuth.client, fetchCartCount)
                             <button class="btn btn-link p-0 border-0 dropdown-toggle no-caret" type="button"
                                 data-bs-toggle="dropdown">
                                 <div v-if="clientAuth.client?.id == 1"
-                                    class="avatar-circle bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                                    class="avatar-circle bg-secondary text-black rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm"
                                     style="width: 40px; height: 40px;">
                                     <i class="bi bi-incognito"></i>
                                 </div>
                                 <div v-else
-                                    class="avatar-circle bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                                    class="avatar-circle bg-primary text-black rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm"
                                     style="width: 40px; height: 40px;">
                                     {{ clientAuth.clientInitials }}
                                 </div>
@@ -168,12 +168,12 @@ watch(() => clientAuth.client, fetchCartCount)
 }
 
 .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 21, 139, 0.05);
 }
 
 .nav-link.active {
     background-color: rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
+    color: #2b00c5 !important;
 }
 
 .btn-order:hover i {
@@ -221,7 +221,7 @@ watch(() => clientAuth.client, fetchCartCount)
 }
 
 .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
+    background-color: rgba(248, 164, 7, 0.1) !important;
+    color: #0a009b !important;
 }
 </style>

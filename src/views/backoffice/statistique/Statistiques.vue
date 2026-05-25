@@ -77,7 +77,7 @@ onMounted(() => {
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h1 class="h3 mb-1 text-white fw-bold">Statistiques Financières</h1>
+                <h1 class="h3 mb-1 text-black fw-bold">Statistiques Financières</h1>
                 <p class="text-secondary mb-0">Analyse détaillée du chiffre d'affaires et des coûts d'acquisition par
                     catégorie.</p>
             </div>
@@ -110,7 +110,7 @@ onMounted(() => {
                                     <i class="bi bi-cash-stack fs-4"></i>
                                 </div>
                             </div>
-                            <h2 class="display-6 fw-bold mb-1 text-white">{{ totalSalesHt.toLocaleString('fr-FR', {
+                            <h2 class="display-6 fw-bold mb-1 text-black">{{ totalSalesHt.toLocaleString('fr-FR', {
                                 minimumFractionDigits: 2, maximumFractionDigits: 2
                             }) }} €</h2>
                             <p class="text-info-light mb-0 fs-7">Chiffre d'affaires cumulé hors taxe</p>
@@ -130,9 +130,10 @@ onMounted(() => {
                                     <i class="bi bi-cart-check fs-4"></i>
                                 </div>
                             </div>
-                            <h2 class="display-6 fw-bold mb-1 text-white">{{ totalPurchasesHt.toLocaleString('fr-FR', {
-                                minimumFractionDigits: 2, maximumFractionDigits: 2
-                            }) }} €</h2>
+                            <h2 class="display-6 fw-bold mb-1 text-black">{{ totalTablePurchasesHt.toLocaleString('fr-FR', {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        }) }} €</h2>
                             <p class="text-warning-light mb-0 fs-7">Valorisation totale des entrées de stock</p>
                             <div class="card-glow bg-warning"></div>
                         </div>
@@ -141,24 +142,27 @@ onMounted(() => {
             </div>
 
             <!-- Category Table -->
-            <div class="card border-0 shadow-sm bg-glass-dark">
+            <div class="card border-0 shadow-sm bg-glass-light">
                 <div
                     class="card-header bg-transparent border-0 px-4 py-3 d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0 fw-bold text-white">Analyse Sectorielle par Catégorie</h5>
+                    <h5 class="mb-0 fw-bold text-black">Analyse Sectorielle par Catégorie</h5>
                     <span class="badge bg-secondary-light text-secondary rounded-pill px-3">{{ categoryStats.length }}
                         catégories actives</span>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-dark table-hover mb-0 align-middle">
+                        <table class="table table-light table-hover mb-0 align-middle">
                             <thead>
                                 <tr class="text-secondary border-bottom border-secondary-light">
                                     <th class="px-4 py-3 text-uppercase tracking-wider fs-8 fw-bold">ID</th>
                                     <th class="py-3 text-uppercase tracking-wider fs-8 fw-bold">Catégorie</th>
                                     <th class="py-3 text-end text-uppercase tracking-wider fs-8 fw-bold">Qté vendue</th>
-                                    <th class="py-3 text-end text-uppercase tracking-wider fs-8 fw-bold">Ventes (HT)</th>
-                                    <th class="py-3 text-end text-uppercase tracking-wider fs-8 fw-bold">Achats (HT)</th>
-                                    <th class="px-4 py-3 text-end text-uppercase tracking-wider fs-8 fw-bold">Marge Brute (HT)</th>
+                                    <th class="py-3 text-end text-uppercase tracking-wider fs-8 fw-bold">Ventes (HT)
+                                    </th>
+                                    <th class="py-3 text-end text-uppercase tracking-wider fs-8 fw-bold">Achats (HT)
+                                    </th>
+                                    <th class="px-4 py-3 text-end text-uppercase tracking-wider fs-8 fw-bold">Marge
+                                        Brute (HT)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -167,13 +171,13 @@ onMounted(() => {
                                     <td class="px-4 text-secondary-light font-monospace">{{ stat.category.id }}</td>
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
-                                            <div class="avatar-init bg-secondary text-white rounded fw-bold fs-7">
+                                            <div class="avatar-init bg-secondary text-black rounded fw-bold fs-7">
                                                 {{ (stat.category.name || 'C').charAt(0).toUpperCase() }}
                                             </div>
-                                            <span class="fw-semibold text-white">{{ stat.category.name }}</span>
+                                            <span class="fw-semibold text-black">{{ stat.category.name }}</span>
                                         </div>
                                     </td>
-                                    <td class="text-end fw-bold text-white-50">
+                                    <td class="text-end fw-bold text-black-50">
                                         {{ stat.quantitySold }}
                                     </td>
                                     <td class="text-end fw-semibold text-info">
@@ -197,15 +201,17 @@ onMounted(() => {
                                     </td>
                                 </tr>
                                 <tr v-if="categoryStats.length === 0">
-                                    <td colspan="6" class="text-center py-4 text-secondary fs-6">Aucune catégorie trouvée ou configurée.</td>
+                                    <td colspan="6" class="text-center py-4 text-secondary fs-6">Aucune catégorie
+                                        trouvée ou configurée.</td>
                                 </tr>
                             </tbody>
                             <tfoot v-if="categoryStats.length > 0" class="border-top border-secondary">
                                 <tr class="bg-secondary bg-opacity-10">
-                                    <td colspan="2" class="px-4 py-3 text-end fw-bold text-white text-uppercase tracking-wider fs-7">
+                                    <td colspan="2"
+                                        class="px-4 py-3 text-end fw-bold text-black text-uppercase tracking-wider fs-7">
                                         Total
                                     </td>
-                                    <td class="text-end fw-bold text-white-50 fs-6">
+                                    <td class="text-end fw-bold text-black-50 fs-6">
                                         {{ totalQuantitySold }}
                                     </td>
                                     <td class="text-end fw-bold text-info fs-6">
@@ -239,7 +245,7 @@ onMounted(() => {
 
 <style scoped>
 /* Glassmorphism custom styling */
-.bg-glass-dark {
+.bg-glass-light {
     background: rgba(30, 34, 45, 0.45) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);

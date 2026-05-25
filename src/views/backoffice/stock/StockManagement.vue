@@ -10,6 +10,8 @@ import { ImageApi } from '@/api/image/ImageApi'
 import type { Product } from '@/types/product'
 import type { Combination } from '@/types/combination'
 import type { StockAvailable } from '@/types/stock_available'
+import { StockMvtService } from '@/service/stock_mvt/StockMvtService'
+import { useAuthStore } from '@/stores/auth'
 
 const stocks = ref<StockAvailable[]>([])
 const productData = ref<Record<number, { name: string, reference: string, image: string }>>({})
@@ -17,6 +19,7 @@ const combinationData = ref<Record<number, { reference: string, attributes: stri
 const adjustmentValues = ref<Record<number, number | null>>({})
 const loading = ref(true)
 const updatingId = ref<number | null>(null)
+const authStore = useAuthStore()
 
 const fetchStocks = async () => {
   try {
@@ -111,13 +114,28 @@ const handleAjoutStock = async (idProduct: number, idProductAttribute: number, s
     const now = new Date()
     const pad = (n: number) => n.toString().padStart(2, '0')
     const dateActuel = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`
+    const signe = adjustment > 0 ? 1 : -1;
 
-    await StockDeltaService.create({
+    const newStock = (currentStock?.quantity || 0) + adjustment
+
+    await StockAvailableService.updateStock(idProduct, idProductAttribute, newStock)
+
+    await StockMvtService.createMouvement({
       id_product: idProduct,
       id_product_attribute: idProductAttribute,
-      delta: adjustment,
-      date_add: dateActuel
+      id_stock: stockId,
+      physical_quantity: adjustment,
+      date_add: dateActuel,
+      sign: signe,
+      id_employee: authStore.user?.id || 1,
     })
+
+    // await StockDeltaService.create({
+    //   id_product: idProduct,
+    //   id_product_attribute: idProductAttribute,
+    //   delta: adjustment,
+    //   date_add: dateActuel
+    // })
 
     // Récupérer uniquement le stock mis à jour pour cette ligne
     const updatedStock = await StockAvailableService.getByProductId(idProduct, idProductAttribute)

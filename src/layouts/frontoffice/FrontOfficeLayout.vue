@@ -31,7 +31,7 @@ import FrontNavbar from './fragments/FrontNavbar.vue'
 }
 
 /* Effet de profondeur léger pour le mode sombre */
-/* [data-bs-theme="dark"] .content-wrapper {
+/* [data-bs-theme="light"] .content-wrapper {
     background-color: #1e1e1e !important;
     border-color: rgba(255, 255, 255, 0.05) !important;
 } */

@@ -39,7 +39,7 @@ const handleLogin = async () => {
     <div class="login-card shadow-sm bg-body-tertiary border">
         <div class="text-center mb-4">
             <h2 class="fw-bold text-uppercase h4 mb-1">
-                <span class="text-primary">Vue</span>Shop
+                <span class="text-primary">Erp</span>Shop
             </h2>
         </div>
 

@@ -49,22 +49,18 @@ const menuItems = ref<(MenuItem & { isOpen?: boolean })[]>([
             }
         ]
     },
+
     {
-        title: 'Paramètres avancés',
-        icon: 'bi-gear',
-        children: [
-            {
-                title: 'Import de données',
-                route: '/import',
-                icon: 'bi-cloud-upload'
-            },
-            {
-                title: 'Réinitialisation',
-                route: '/reset',
-                icon: 'bi-arrow-clockwise'
-            }
-        ]
+        title: 'Import de données',
+        route: '/import',
+        icon: 'bi-cloud-upload'
+    },
+    {
+        title: 'Réinitialisation',
+        route: '/reset',
+        icon: 'bi-arrow-clockwise'
     }
+
 ])
 
 const isActive = (itemRoute?: string) => {
@@ -86,8 +82,8 @@ const toggleMenu = (item: any) => {
     <nav class="d-flex flex-column flex-shrink-0 bg-body-tertiary border-end min-vh-100" style="width: 250px;">
         <div class="d-flex align-items-center px-4" style="height: 70px;">
             <RouterLink to="/" class="text-decoration-none w-100 text-center">
-                <h2 class="fw-bold text-uppercase h4 mb-0 text-white">
-                    <span class="text-primary">Vue</span>Shop
+                <h2 class="fw-bold text-uppercase h4 mb-0 text-black">
+                    <span class="text-primary">Erp</span>Shop
                 </h2>
             </RouterLink>
         </div>
@@ -97,7 +93,7 @@ const toggleMenu = (item: any) => {
                 <li class="nav-item mb-1" v-for="(item, index) in menuItems" :key="index">
 
                     <RouterLink v-if="!item.children" :to="item.route!"
-                        class="nav-link text-light d-flex align-items-center gap-2"
+                        class="nav-link text-dark d-flex align-items-center gap-2"
                         :class="{ 'active': isActive(item.route) }">
                         <i class="bi" :class="item.icon || 'bi-circle'"></i>
                         {{ item.title }}
@@ -105,7 +101,7 @@ const toggleMenu = (item: any) => {
 
                     <div v-else>
                         <button
-                            class="nav-link text-light d-flex justify-content-between align-items-center w-100 border-0"
+                            class="nav-link text-dark d-flex justify-content-between align-items-center w-100 border-0"
                             :class="[isChildActive(item.children) ? 'active' : 'bg-transparent']"
                             @click="toggleMenu(item)">
                             <div class="d-flex align-items-center gap-2">
@@ -118,7 +114,7 @@ const toggleMenu = (item: any) => {
                             <ul class="nav flex-column ms-3 mt-1">
                                 <li class="nav-item" v-for="(child, childIndex) in item.children" :key="childIndex">
                                     <RouterLink
-                                        class="nav-link text-light py-1 opacity-75 d-flex align-items-center gap-2"
+                                        class="nav-link text-dark py-1 opacity-75 d-flex align-items-center gap-2"
                                         :class="{ 'active fw-bold opacity-100': isActive(child.route) }"
                                         :to="child.route!">
                                         <i class="fs-6 bi" :class="child.icon || 'bi-dash'"></i>
@@ -136,7 +132,7 @@ const toggleMenu = (item: any) => {
 
 <style scoped>
 .nav-pills .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
+    background-color: rgba(255, 208, 0, 0.1) !important;
+    color: #001797 !important;
 }
 </style>

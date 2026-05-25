@@ -412,7 +412,7 @@ onMounted(loadCart)
                     class="card bg-body-tertiary border border-secondary-subtle rounded-4 mb-3 cart-item-card overflow-hidden">
                     <div class="card-body d-flex gap-3 p-3">
                         <!-- Image Produit -->
-                        <div class="cart-item-image rounded-3 overflow-hidden border bg-dark flex-shrink-0"
+                        <div class="cart-item-image rounded-3 overflow-hidden border bg-light flex-shrink-0"
                             style="width: 110px; height: 110px;">
                             <img :src="getProductImage(item)" class="w-100 h-100 object-fit-cover" alt="produit">
                         </div>
@@ -421,17 +421,19 @@ onMounted(loadCart)
                         <div class="flex-grow-1 d-flex flex-column justify-content-between">
                             <div>
                                 <RouterLink :to="`/boutique/produit/${item.id_product}`"
-                                    class="fw-bold text-decoration-none text-white h6 mb-1 d-block hover-primary">
+                                    class="fw-bold text-decoration-none text-black h6 mb-1 d-block hover-primary">
                                     {{ item.name }}
                                 </RouterLink>
                                 <span v-if="item.id_product_attribute"
                                     class="badge bg-primary-subtle text-primary rounded-pill small me-2">
                                     Variante #{{ item.id_product_attribute }}
                                 </span>
-                                <span class="badge rounded-pill px-2 py-1 text-white fs-8 ms-1"
+                                <span class="badge rounded-pill px-2 py-1 text-black fs-8 ms-1"
                                     :class="item.stockQuantity !== undefined && item.stockQuantity > 0 ? 'bg-success' : 'bg-danger'">
-                                    <span v-if="item.stockQuantity !== undefined">{{ item.stockQuantity }} en stock</span>
-                                    <span v-else class="spinner-border spinner-border-sm" role="status" style="width: 0.6rem; height: 0.6rem;"></span>
+                                    <span v-if="item.stockQuantity !== undefined">{{ item.stockQuantity }} en
+                                        stock</span>
+                                    <span v-else class="spinner-border spinner-border-sm" role="status"
+                                        style="width: 0.6rem; height: 0.6rem;"></span>
                                 </span>
                             </div>
 
@@ -439,18 +441,18 @@ onMounted(loadCart)
                                 <!-- Quantité Controls -->
                                 <div class="input-group rounded-3 overflow-hidden border border-secondary-subtle"
                                     style="width: 130px; height: 38px;">
-                                    <button class="btn btn-dark border-0 px-2 h-100"
+                                    <button class="btn btn-light border-0 px-2 h-100"
                                         :disabled="updatingRow === getRowKey(item) || item.quantity <= 1"
                                         @click="updateQuantity(item, -1)">
                                         <i class="bi bi-dash"></i>
                                     </button>
                                     <div
-                                        class="form-control bg-dark border-0 text-center text-white fw-bold d-flex align-items-center justify-content-center shadow-none h-100">
+                                        class="form-control bg-light border-0 text-center text-black fw-bold d-flex align-items-center justify-content-center shadow-none h-100">
                                         <span v-if="updatingRow === getRowKey(item)"
                                             class="spinner-border spinner-border-sm"></span>
                                         <span v-else>{{ item.quantity }}</span>
                                     </div>
-                                    <button class="btn btn-dark border-0 px-2 h-100"
+                                    <button class="btn btn-light border-0 px-2 h-100"
                                         :disabled="updatingRow === getRowKey(item)" @click="updateQuantity(item, 1)">
                                         <i class="bi bi-plus"></i>
                                     </button>
@@ -524,7 +526,8 @@ onMounted(loadCart)
                             Connectez-vous pour commander
                         </RouterLink>
 
-                        <RouterLink to="/boutique/produit" class="btn btn-outline-light w-100 rounded-3 mt-2 fw-bold">
+                        <RouterLink to="/boutique/produit"
+                            class="btn btn-outline-secondary w-100 rounded-3 mt-2 fw-bold">
                             <i class="bi bi-arrow-left me-2"></i>
                             Continuer les achats
                         </RouterLink>

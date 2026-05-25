@@ -20,23 +20,23 @@ const selectedOrderHistory = ref<OrderHistory[]>([])
 const isHistoryLoading = ref(false)
 
 const orderStatusMap: Record<number, { label: string; badgeClass: string }> = {
-    1: { label: 'En attente du paiement par chèque', badgeClass: 'bg-warning text-dark' },
-    2: { label: 'Paiement accepté', badgeClass: 'bg-info text-white' },
-    3: { label: 'En cours de préparation', badgeClass: 'bg-info text-white' },
-    4: { label: 'Expédié', badgeClass: 'bg-primary text-white' },
-    5: { label: 'Livré', badgeClass: 'bg-primary text-white' },
-    6: { label: 'Annulé', badgeClass: 'bg-danger text-white' },
-    7: { label: 'Remboursé', badgeClass: 'bg-secondary text-white' },
-    8: { label: 'Erreur de paiement', badgeClass: 'bg-danger text-white' },
-    9: { label: 'En attente de réapprovisionnement (payé)', badgeClass: 'bg-warning text-dark' },
-    10: { label: 'En attente de virement bancaire', badgeClass: 'bg-warning text-dark' },
-    11: { label: 'Paiement à distance accepté', badgeClass: 'bg-success text-white' },
-    12: { label: 'En attente de réapprovisionnement (non payé)', badgeClass: 'bg-warning text-dark' },
-    13: { label: 'En attente de paiement à la livraison', badgeClass: 'bg-warning text-dark' },
-    14: { label: 'En attente de paiement', badgeClass: 'bg-warning text-dark' },
-    15: { label: 'Remboursement partiel', badgeClass: 'bg-secondary text-white' },
-    16: { label: 'Paiement partiel', badgeClass: 'bg-info text-white' },
-    17: { label: 'Autorisation — À capturer', badgeClass: 'bg-info text-white' },
+    1: { label: 'En attente du paiement par chèque', badgeClass: 'bg-warning text-light' },
+    2: { label: 'Paiement accepté', badgeClass: 'bg-info text-black' },
+    3: { label: 'En cours de préparation', badgeClass: 'bg-info text-black' },
+    4: { label: 'Expédié', badgeClass: 'bg-primary text-black' },
+    5: { label: 'Livré', badgeClass: 'bg-primary text-black' },
+    6: { label: 'Annulé', badgeClass: 'bg-danger text-black' },
+    7: { label: 'Remboursé', badgeClass: 'bg-secondary text-black' },
+    8: { label: 'Erreur de paiement', badgeClass: 'bg-danger text-black' },
+    9: { label: 'En attente de réapprovisionnement (payé)', badgeClass: 'bg-warning text-light' },
+    10: { label: 'En attente de virement bancaire', badgeClass: 'bg-warning text-light' },
+    11: { label: 'Paiement à distance accepté', badgeClass: 'bg-success text-black' },
+    12: { label: 'En attente de réapprovisionnement (non payé)', badgeClass: 'bg-warning text-light' },
+    13: { label: 'En attente de paiement à la livraison', badgeClass: 'bg-warning text-light' },
+    14: { label: 'En attente de paiement', badgeClass: 'bg-warning text-light' },
+    15: { label: 'Remboursement partiel', badgeClass: 'bg-secondary text-black' },
+    16: { label: 'Paiement partiel', badgeClass: 'bg-info text-black' },
+    17: { label: 'Autorisation — À capturer', badgeClass: 'bg-info text-black' },
 }
 
 const totalPages = computed(() => Math.max(1, Math.ceil(totalOrders.value / itemsPerPage)))
@@ -54,7 +54,7 @@ const getStatusLabel = (status: number): string => {
 }
 
 const getStatusBadgeClass = (status: number): string => {
-    return orderStatusMap[status]?.badgeClass || 'bg-secondary text-white'
+    return orderStatusMap[status]?.badgeClass || 'bg-secondary text-black'
 }
 
 const changePage = async (page: number) => {
@@ -249,15 +249,15 @@ onMounted(fetchOrders)
 
             <!-- Pagination -->
             <div v-if="totalPages > 1" class="d-flex justify-content-center align-items-center mt-4 gap-1">
-                <button class="btn btn-sm btn-outline-light rounded-3 px-3" :disabled="currentPage === 1"
+                <button class="btn btn-sm btn-outline-secondary rounded-3 px-3" :disabled="currentPage === 1"
                     @click="changePage(currentPage - 1)">
                     <i class="bi bi-chevron-left"></i>
                 </button>
                 <button v-for="page in paginationPages" :key="page" class="btn btn-sm rounded-3 px-3"
-                    :class="page === currentPage ? 'btn-primary' : 'btn-outline-light'" @click="changePage(page)">
+                    :class="page === currentPage ? 'btn-primary' : 'btn-outline-secondary'" @click="changePage(page)">
                     {{ page }}
                 </button>
-                <button class="btn btn-sm btn-outline-light rounded-3 px-3" :disabled="currentPage === totalPages"
+                <button class="btn btn-sm btn-outline-secondary rounded-3 px-3" :disabled="currentPage === totalPages"
                     @click="changePage(currentPage + 1)">
                     <i class="bi bi-chevron-right"></i>
                 </button>
@@ -274,7 +274,7 @@ onMounted(fetchOrders)
     <div v-if="selectedOrder" class="modal-backdrop fade show" @click="closeDetailModal"></div>
     <div v-if="selectedOrder" class="modal fade show d-block" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content bg-dark text-white border-secondary">
+            <div class="modal-content bg-light text-black border-secondary">
                 <div class="modal-header border-secondary">
                     <h5 class="modal-title fw-bold">
                         <i class="bi bi-bicycle text-primary me-2"></i>
@@ -298,12 +298,13 @@ onMounted(fetchOrders)
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-muted">Client</span>
-                                <span class="fw-bold text-info">{{ customerNames[selectedOrder.id_customer] || `#${selectedOrder.id_customer}` }}</span>
+                                <span class="fw-bold text-info">{{ customerNames[selectedOrder.id_customer] ||
+                                    `#${selectedOrder.id_customer}` }}</span>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-muted">Date</span>
                                 <span>{{ new Date(selectedOrder.date_add).toLocaleDateString('fr-FR', {
-                                    day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute:'2-digit'
+                                    day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
                                 }) }}</span>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
@@ -317,15 +318,18 @@ onMounted(fetchOrders)
                             </h6>
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-muted">Total payé (TTC)</span>
-                                <span class="fw-bold text-success">{{ selectedOrder.total_paid_tax_incl.toFixed(2) }} €</span>
+                                <span class="fw-bold text-success">{{ selectedOrder.total_paid_tax_incl.toFixed(2) }}
+                                    €</span>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-muted">Montant réel payé</span>
-                                <span class="fw-bold text-primary">{{ selectedOrder.total_paid_real.toFixed(2) }} €</span>
+                                <span class="fw-bold text-primary">{{ selectedOrder.total_paid_real.toFixed(2) }}
+                                    €</span>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-muted">Frais de port</span>
-                                <span>{{ selectedOrder.total_shipping_tax_incl > 0 ? selectedOrder.total_shipping_tax_incl.toFixed(2) + ' €' : 'Gratuit' }}</span>
+                                <span>{{ selectedOrder.total_shipping_tax_incl > 0 ?
+                                    selectedOrder.total_shipping_tax_incl.toFixed(2) + ' €' : 'Gratuit' }}</span>
                             </div>
                             <hr class="border-secondary opacity-25 my-2">
                             <div class="d-flex justify-content-between mb-2">
@@ -358,8 +362,9 @@ onMounted(fetchOrders)
                             <div class="spinner-border text-info spinner-border-sm" role="status"></div>
                             <span class="ms-2 text-muted small">Chargement de l'historique...</span>
                         </div>
-                        <div v-else-if="selectedOrderHistory.length > 0" class="border border-secondary-subtle rounded-3 overflow-hidden">
-                            <table class="table table-dark table-sm mb-0">
+                        <div v-else-if="selectedOrderHistory.length > 0"
+                            class="border border-secondary-subtle rounded-3 overflow-hidden">
+                            <table class="table table-light table-sm mb-0">
                                 <thead>
                                     <tr class="text-secondary opacity-75">
                                         <th class="ps-3 py-2 fw-normal small">Date & Heure</th>
@@ -367,7 +372,8 @@ onMounted(fetchOrders)
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(history, index) in selectedOrderHistory" :key="history.id || index" class="border-top border-secondary-subtle">
+                                    <tr v-for="(history, index) in selectedOrderHistory" :key="history.id || index"
+                                        class="border-top border-secondary-subtle">
                                         <td class="ps-3 py-2 align-middle text-muted small">
                                             {{ history.date_add ? new Date(history.date_add).toLocaleString('fr-FR', {
                                                 day: '2-digit', month: '2-digit', year: 'numeric',
@@ -398,11 +404,14 @@ onMounted(fetchOrders)
                             class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary-subtle">
                             <div>
                                 <span class="fw-bold">{{ row.product_name || `Produit #${row.product_id}` }}</span>
-                                <span v-if="row.product_reference" class="text-muted ms-2 small">(Réf: {{ row.product_reference }})</span>
+                                <span v-if="row.product_reference" class="text-muted ms-2 small">(Réf: {{
+                                    row.product_reference }})</span>
                             </div>
                             <div class="text-end">
-                                <span class="text-muted small">{{ row.unit_price_tax_incl.toFixed(2) }} € × {{ row.product_quantity }}</span>
-                                <span class="fw-bold ms-3">{{ (row.unit_price_tax_incl * row.product_quantity).toFixed(2) }} €</span>
+                                <span class="text-muted small">{{ row.unit_price_tax_incl.toFixed(2) }} € × {{
+                                    row.product_quantity }}</span>
+                                <span class="fw-bold ms-3">{{ (row.unit_price_tax_incl *
+                                    row.product_quantity).toFixed(2) }} €</span>
                             </div>
                         </div>
                     </div>

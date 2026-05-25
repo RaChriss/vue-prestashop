@@ -18,24 +18,24 @@ const currentPage = ref(1)
 const itemsPerPage = 8
 
 const orderStatusMap: Record<number, { label: string; badgeClass: string }> = {
-    1: { label: 'En attente du paiement par chèque', badgeClass: 'bg-warning text-dark' },
-    2: { label: 'Paiement accepté', badgeClass: 'bg-info text-white' },
-    3: { label: 'En cours de préparation', badgeClass: 'bg-info text-white' },
-    4: { label: 'Expédié', badgeClass: 'bg-primary text-white' },
-    5: { label: 'Livré', badgeClass: 'bg-success text-white' },
-    6: { label: 'Annulé', badgeClass: 'bg-danger text-white' },
-    7: { label: 'Remboursé', badgeClass: 'bg-secondary text-white' },
-    8: { label: 'Erreur de paiement', badgeClass: 'bg-danger text-white' },
-    9: { label: 'En attente de réapprovisionnement (payé)', badgeClass: 'bg-warning text-dark' },
-    10: { label: 'En attente de virement bancaire', badgeClass: 'bg-warning text-dark' },
-    11: { label: 'Paiement à distance accepté', badgeClass: 'bg-success text-white' },
-    12: { label: 'En attente de réapprovisionnement (non payé)', badgeClass: 'bg-warning text-dark' },
-    13: { label: 'En attente de paiement à la livraison', badgeClass: 'bg-warning text-dark' },
-    14: { label: 'En attente de paiement', badgeClass: 'bg-warning text-dark' },
-    15: { label: 'Remboursement partiel', badgeClass: 'bg-secondary text-white' },
-    16: { label: 'Paiement partiel', badgeClass: 'bg-info text-white' },
-    17: { label: 'Autorisation — À capturer', badgeClass: 'bg-info text-white' },
-    [-99]: { label: 'Dans le panier', badgeClass: 'bg-secondary text-white opacity-75' },
+    1: { label: 'En attente du paiement par chèque', badgeClass: 'bg-warning text-light' },
+    2: { label: 'Paiement accepté', badgeClass: 'bg-info text-black' },
+    3: { label: 'En cours de préparation', badgeClass: 'bg-info text-black' },
+    4: { label: 'Expédié', badgeClass: 'bg-primary text-black' },
+    5: { label: 'Livré', badgeClass: 'bg-success text-black' },
+    6: { label: 'Annulé', badgeClass: 'bg-danger text-black' },
+    7: { label: 'Remboursé', badgeClass: 'bg-secondary text-black' },
+    8: { label: 'Erreur de paiement', badgeClass: 'bg-danger text-black' },
+    9: { label: 'En attente de réapprovisionnement (payé)', badgeClass: 'bg-warning text-light' },
+    10: { label: 'En attente de virement bancaire', badgeClass: 'bg-warning text-light' },
+    11: { label: 'Paiement à distance accepté', badgeClass: 'bg-success text-black' },
+    12: { label: 'En attente de réapprovisionnement (non payé)', badgeClass: 'bg-warning text-light' },
+    13: { label: 'En attente de paiement à la livraison', badgeClass: 'bg-warning text-light' },
+    14: { label: 'En attente de paiement', badgeClass: 'bg-warning text-light' },
+    15: { label: 'Remboursement partiel', badgeClass: 'bg-secondary text-black' },
+    16: { label: 'Paiement partiel', badgeClass: 'bg-info text-black' },
+    17: { label: 'Autorisation — À capturer', badgeClass: 'bg-info text-black' },
+    [-99]: { label: 'Dans le panier', badgeClass: 'bg-secondary text-black opacity-75' },
 }
 
 const showDuplicationPanel = ref(false)
@@ -206,7 +206,7 @@ const getStatusLabel = (status: number): string => {
 }
 
 const getStatusBadgeClass = (status: number): string => {
-    return orderStatusMap[status]?.badgeClass || 'bg-secondary text-white'
+    return orderStatusMap[status]?.badgeClass || 'bg-secondary text-black'
 }
 
 const fetchOrders = async () => {
@@ -382,7 +382,7 @@ onMounted(fetchOrders)
                         </span>
                     </td>
                     <td class="text-end pe-4">
-                        <button class="btn btn-sm btn-outline-light rounded-3 me-1" @click="openDetailModal(order)">
+                        <button class="btn btn-sm btn-outline-secondary rounded-3 me-1" @click="openDetailModal(order)">
                             <i class="bi bi-eye"></i>
                             Détails
                         </button>
@@ -396,15 +396,15 @@ onMounted(fetchOrders)
 
         <!-- Pagination -->
         <div v-if="totalPages > 1" class="d-flex justify-content-center align-items-center mt-4 gap-1">
-            <button class="btn btn-sm btn-outline-light rounded-3 px-3" :disabled="currentPage === 1"
+            <button class="btn btn-sm btn-outline-secondary rounded-3 px-3" :disabled="currentPage === 1"
                 @click="changePage(currentPage - 1)">
                 <i class="bi bi-chevron-left"></i>
             </button>
             <button v-for="page in paginationPages" :key="page" class="btn btn-sm rounded-3 px-3"
-                :class="page === currentPage ? 'btn-primary' : 'btn-outline-light'" @click="changePage(page)">
+                :class="page === currentPage ? 'btn-primary' : 'btn-outline-secondary'" @click="changePage(page)">
                 {{ page }}
             </button>
-            <button class="btn btn-sm btn-outline-light rounded-3 px-3" :disabled="currentPage === totalPages"
+            <button class="btn btn-sm btn-outline-secondary rounded-3 px-3" :disabled="currentPage === totalPages"
                 @click="changePage(currentPage + 1)">
                 <i class="bi bi-chevron-right"></i>
             </button>
@@ -415,7 +415,7 @@ onMounted(fetchOrders)
     <div v-if="selectedOrder" class="modal-backdrop fade show" @click="closeDetailModal"></div>
     <div v-if="selectedOrder" class="modal fade show d-block" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content bg-dark text-white border-secondary">
+            <div class="modal-content bg-light text-black border-secondary">
                 <div class="modal-header border-secondary">
                     <h5 class="modal-title fw-bold">
                         <!-- <i :class="selectedOrder.isCart ? 'bi bi-cart3 text-info' : 'bi bi-bicycle text-primary'"
@@ -536,7 +536,7 @@ onMounted(fetchOrders)
                                 duplicationMultiplier }})
                         </h6>
                         <div class="table-responsive rounded-3 border border-secondary-subtle">
-                            <table class="table table-dark table-striped mb-0">
+                            <table class="table table-light table-striped mb-0">
                                 <thead>
                                     <tr>
                                         <th class="ps-3 py-2 small">Produit</th>
@@ -548,7 +548,7 @@ onMounted(fetchOrders)
                                 <tbody>
                                     <tr v-for="p in duplicationProducts"
                                         :key="p.product_id + '-' + p.product_attribute_id">
-                                        <td class="ps-3 py-2 align-middle text-white fw-semibold small">
+                                        <td class="ps-3 py-2 align-middle text-black fw-semibold small">
                                             {{ p.product_name }}
                                         </td>
                                         <td class="py-2 text-center align-middle small">
@@ -601,9 +601,9 @@ onMounted(fetchOrders)
                     <div v-else-if="showDuplicationPanel && duplicationStep === 1" class="w-100">
                         <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
                             <div class="d-flex align-items-center gap-2">
-                                <label class="text-white small mb-0">Multiplicateur :</label>
+                                <label class="text-black small mb-0">Multiplicateur :</label>
                                 <input type="number" v-model.number="duplicationMultiplier"
-                                    class="form-control form-control-sm bg-dark text-white border-secondary"
+                                    class="form-control form-control-sm bg-light text-black border-secondary"
                                     style="width: 75px;" min="1" />
                             </div>
                             <div class="d-flex gap-2">
