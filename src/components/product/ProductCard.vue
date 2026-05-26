@@ -77,7 +77,6 @@ const loadData = async () => {
         isLoading.value = false
     }
 }
-
 onMounted(loadData)
 </script>
 
