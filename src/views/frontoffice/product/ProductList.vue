@@ -5,6 +5,13 @@ import { ProductService } from '@/service/product/ProductService'
 import { CategoryService } from '@/service/category/CategoryService'
 import type { Product } from '@/types/product'
 import type { Category } from '@/types/category'
+import { useClientAuthStore } from '@/stores/clientAuth'
+import { EmployeeService } from '@/service/employee/EmployeeService'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+
+
 
 const categories = ref<Category[]>([])
 const selectedCategory = ref<string | number>('Tout')
@@ -17,6 +24,15 @@ const currentPage = ref(1)
 const itemsPerPage = 11
 const totalProducts = ref(0)
 const isLoading = ref(true)
+
+const router = useRouter()
+
+
+const clientAuth = useClientAuthStore()
+
+const authStore = useAuthStore()
+
+
 
 const totalPages = computed(() => Math.ceil(totalProducts.value / itemsPerPage))
 
@@ -87,6 +103,40 @@ const applyFilters = () => {
     fetchProducts()
 }
 
+async function handleConnectionRemove() {
+
+    const email = prompt("Connexion requise pour modifier le stock.\nVeuillez saisir votre adresse email :")
+    if (email === null) return // Annulé par l'utilisateur
+    if (!email.trim()) {
+        alert("L'adresse email ne peut pas être vide.")
+        return
+    }
+
+    const password = prompt("Veuillez saisir votre mot de passe :")
+    if (password === null) return // Annulé par l'utilisateur
+    if (!password.trim()) {
+        alert("Le mot de passe ne peut pas être vide.")
+        return
+    }
+
+    try {
+        const employee = await EmployeeService.login(email, password)
+        if (employee) {
+            authStore.login({ id: employee.id, email: employee.email, password: password })
+            isLoading.value = false
+            router.push('/remove-stock')
+        } else {
+            isLoading.value = false
+            // errorMessage.value = 'Email ou mot de passe incorrect'
+        }
+    } catch (error) {
+        isLoading.value = false
+        // errorMessage.value = 'Une erreur est survenue lors de la connexion'
+        console.error('Erreur de connexion:', error)
+    }
+
+}
+
 onMounted(() => {
     fetchCategories()
     fetchTotalCount()
@@ -104,6 +154,8 @@ watch(currentPage, fetchProducts)
             </div>
             <h2 class="h4 mb-0 fw-bold">Liste des produits</h2>
         </div>
+
+
 
         <div class="row g-4">
             <aside class="col-lg-3">
@@ -161,6 +213,9 @@ watch(currentPage, fetchProducts)
             <!-- Liste des Produits -->
             <div class="col-lg-9">
                 <!-- Toolbar Supérieure -->
+                <button @click="handleConnectionRemove">
+                    remove Stock
+                </button>
                 <div
                     class="d-flex justify-content-between align-items-center mb-4 bg-body p-3 rounded-4 border shadow-sm">
                     <p class="mb-0 text-muted small fw-medium">

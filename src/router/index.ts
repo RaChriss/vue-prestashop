@@ -15,6 +15,18 @@ const router = createRouter({
       component: () => import('../views/frontoffice/home/HomeView.vue'),
     },
     {
+      path: '/remove-stock',
+      name: 'remove',
+      meta: { layout: 'frontoffice' },
+      component: () => import('../views/frontoffice/home/Remove.vue'),
+    },
+    {
+      path: '/remove-stock/report',
+      name: 'remove-stock-report',
+      meta: { layout: 'frontoffice' },
+      component: () => import('../views/frontoffice/home/StockReport.vue'),
+    },
+    {
       path: '/boutique/produit',
       name: 'product-list',
       meta: { layout: 'frontoffice', requiresClientAuth: true },
