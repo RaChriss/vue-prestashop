@@ -122,6 +122,15 @@ export const OrderService = {
         }
     },
 
+    async countAll(): Promise<number> {
+        try {
+            return await OrdersApi.countAll()
+        } catch (error) {
+            console.error('Erreur lors du comptage de toutes les commandes:', error)
+            return 0
+        }
+    },
+
     async getById(id: number): Promise<Order | undefined> {
         try {
             const xml = await OrdersApi.getById(id)
@@ -151,35 +160,6 @@ export const OrderService = {
             return []
         }
     },
-
-    async getFiltered(filters: OrderFilters, page: number, limit: number): Promise<Order[]> {
-        try {
-            const xml = await OrdersApi.getFiltered(filters, page, limit)
-            return parseOrderListXml(xml)
-        } catch (error) {
-            console.error('Erreur lors de la récupération filtrée des commandes:', error)
-            return []
-        }
-    },
-
-    async countAll(): Promise<number> {
-        try {
-            return await OrdersApi.countAll()
-        } catch (error) {
-            console.error('Erreur lors du comptage de toutes les commandes:', error)
-            return 0
-        }
-    },
-
-    async countFiltered(filters: OrderFilters): Promise<number> {
-        try {
-            return await OrdersApi.countFiltered(filters)
-        } catch (error) {
-            console.error('Erreur lors du comptage filtré des commandes:', error)
-            return 0
-        }
-    },
-
     async getAllSansAnnuler(): Promise<Order[]> {
         try {
             const allOrders = await this.getAll()
